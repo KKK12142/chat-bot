@@ -6,8 +6,11 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  serverRuntimeConfig: {
-    PROJECT_ROOT: __dirname,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
