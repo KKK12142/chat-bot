@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, use } from "react";
+import { useState, useEffect, useRef } from "react";
 import { auth, db } from "../../../firebase";
 import {
   collection,
@@ -16,13 +16,6 @@ import createChatCompletion from "../../../components/openai";
 import { useRouter, useSearchParams } from "next/navigation";
 import LoadingDots from "../../../components/LoadingDots";
 import { analyzeSentiment } from "../../../components/openai";
-
-export const dynamic = "force-dynamic";
-export const dynamicParams = true;
-
-export async function generateStaticParams() {
-  return [];
-}
 
 export default function ChatRoom() {
   const searchParams = useSearchParams();
@@ -112,7 +105,7 @@ export default function ChatRoom() {
 
         setDisplayMessages((prev) => [...newMessages, ...prev]);
 
-        // 스크롤 위치 유지를 위해 새로운 컨텐츠가 ��가된 후의 높이 차이만큼 스크롤
+        // 스크롤 위치 유지를 위해 새로운 컨텐츠가 가된 후의 높이 차이만큼 스크롤
         setTimeout(() => {
           const newHeight = container.scrollHeight;
           container.scrollTop = newHeight - previousHeight;
