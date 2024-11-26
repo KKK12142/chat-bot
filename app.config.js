@@ -6,7 +6,7 @@ export default {
     slug: "chat-bot",
     version: "1.0.0",
     extra: {
-      OPENAI_API_KEY: process.env.EXPO_PUBLIC_OPENAI_API_KEY,
+      OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     },
   },
 };
