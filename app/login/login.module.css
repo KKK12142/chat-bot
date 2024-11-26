@@ -1,0 +1,136 @@
+.container {
+  min-height: 100vh;
+  width: 100%;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginBox {
+  max-width: 450px;
+  width: 100%;
+  min-width: 320px;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.inputGroup label {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.inputGroup input,
+.inputGroup select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+}
+
+.numberInput {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.numberInput::-webkit-outer-spin-button,
+.numberInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.select {
+  background-color: white;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: #1d4ed8;
+}
+
+.submitButton:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #dc2626;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.signupText {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.signupText a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signupText a:hover {
+  text-decoration: underline;
+}
+
+/* 로딩 상태일 때 사용할 새로운 클래스 */
+.loadingContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}

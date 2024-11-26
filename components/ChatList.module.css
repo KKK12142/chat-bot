@@ -1,0 +1,198 @@
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.chatList {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-right: 200px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 2rem;
+}
+
+.roomList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.roomItem {
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.roomItem:hover {
+  background-color: #f3f4f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.roomName {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.roomDescription {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.lastMessage {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.lastMessage p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lastMessage span {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.addButton {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.addButton:hover {
+  background-color: #2563eb;
+}
+
+.chatRoom {
+  position: relative;
+  padding: 1rem 1rem 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  background: white;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  overflow: hidden;
+}
+
+.emotionBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: #f1f3f5;
+  overflow: hidden;
+}
+
+.negativeEmotionFill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #ff6b6b;
+  transition: height 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+.positiveEmotionFill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #69db7c; /* 연두색 */
+  transition: height 0.3s ease;
+  animation: pulse 2s infinite;
+  z-index: 2; /* 부정적 감정 바 위에 표시 */
+}
+
+.chatRoomInfo {
+  flex: 1;
+}
+
+.chatRoomHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.chatRoomHeader h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.timestamp {
+  font-size: 0.8rem;
+  color: #868e96;
+  min-width: 60px;
+  text-align: right;
+}
+
+.description {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: #495057;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lastMessage {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.9rem;
+  color: #868e96;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+.chatRoom:hover {
+  background: #f8f9fa;
+  transform: translateX(5px);
+  transition: all 0.2s ease;
+}
+
+/* 위험 수준이 높은 채팅방을 위한 추가 스타일 */
+.chatRoom[style*="rgb(255, 0, 0)"] {
+  border-color: rgba(255, 0, 0, 0.2);
+}
