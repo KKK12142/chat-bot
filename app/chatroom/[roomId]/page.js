@@ -13,13 +13,13 @@ import {
 } from "firebase/firestore";
 import AuthCheck from "../../../components/AuthCheck";
 import createChatCompletion from "../../../components/openai";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import LoadingDots from "../../../components/LoadingDots";
 import { analyzeSentiment } from "../../../components/openai";
 
-export default function ChatRoom({ params }) {
-  const unwrappedParams = use(params);
-  const { roomId } = unwrappedParams;
+export default function ChatRoom() {
+  const searchParams = useSearchParams();
+  const roomId = searchParams.get("roomId");
   const router = useRouter();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
