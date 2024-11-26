@@ -17,6 +17,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import LoadingDots from "../../../components/LoadingDots";
 import { analyzeSentiment } from "../../../components/openai";
 
+export const dynamic = "force-dynamic";
+
 export default function ChatRoom() {
   const searchParams = useSearchParams();
   const roomId = searchParams.get("roomId");
