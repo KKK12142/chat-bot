@@ -174,7 +174,7 @@ export default function ChatList() {
             <h2 className="text-xl font-bold mb-4">새로운 상담방 만들기</h2>
             <input
               type="text"
-              placeholder="상담방 이름"
+              placeholder="상담 주제"
               className="w-full p-2 mb-4 border rounded"
               value={newRoomData.name}
               onChange={(e) =>
@@ -183,7 +183,7 @@ export default function ChatList() {
             />
             <input
               type="text"
-              placeholder="상담방 설명"
+              placeholder="원하는 상담 내용을 입력해 주세요"
               className="w-full p-2 mb-4 border rounded"
               value={newRoomData.description}
               onChange={(e) =>

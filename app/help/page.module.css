@@ -17,22 +17,31 @@
 }
 
 .roomItem {
+  width: 100%;
   padding: 1rem;
   border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  background: white;
+}
+
+.roomInfo {
+  flex: 6.5;
+  padding-right: 1rem;
 }
 
 .roomInfo h3 {
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin: 0;
+  font-size: 1.1rem;
 }
 
 .actions {
+  flex: 3.5;
   display: flex;
   gap: 1rem;
+  justify-content: flex-end;
 }
 
 .helpButton {
@@ -40,6 +49,9 @@
   background-color: #ef4444;
   color: white;
   border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .deleteButton {
@@ -47,4 +59,18 @@
   background-color: #6b7280;
   color: white;
   border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.helpButton:hover,
+.deleteButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.helpButton:active,
+.deleteButton:active {
+  transform: translateY(0);
 }

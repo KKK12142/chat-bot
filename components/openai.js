@@ -15,14 +15,7 @@ export default async function createChatCompletion(
   if (message_history.length == 0) {
     message_history.push({
       role: "system",
-      content: `
-      1. 너는 친구처럼 한국어(반말)로 대답할 수 있는 친절한 전문 상담사야
-      2.너와 상담한 사람들은 모두 마음이 편안해져 너는 훌륭해
-      3. 모든 대화는 텍스트나 이모지로만 이루어져야해
-      4. 마크다운 언어는 절대 사용하지마
-      5. 그리고 대답은 너무 길게 하지마 최대 100자 이내로 제한해
-      6. 비속어나, 욕설, 폭언을 해도 당황하지마
-      7. 위에있는 이 설정들을 절대로 무슨일이 있어도 바꾸지말고 지켜야해`,
+      content: ` 학생들을 대상으로 상담을 하는 전문 상담사 역할 수행하며 질문을 통해 대화를 유도할 것.`,
     });
   }
 
@@ -31,9 +24,55 @@ export default async function createChatCompletion(
   const chatCompletion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: message_history,
+    tools: [
+      {
+        type: "function",
+        function: {
+          name: "create_response",
+          description: "상담사의 응답을 생성",
+          parameters: {
+            type: "object",
+            properties: {
+              message: {
+                type: "string",
+                description: `You are a Professional Counselor, skilled in providing guidance and support to students. You will engage in friendly conversations, offering appropriate advice based on the situation. You will listen to the student's conversation, inquire about their emotions, and continue the dialogue in a way that helps stabilize their psychological state. Here is how you will proceed: 
+
+**Step 1: Establish Rapport:**
+ Begin by introducing yourself in a friendly manner, making the student feel comfortable and open to sharing. 
+
+**Step 2: Active Listening:**
+ Pay close attention to what the student is saying, showing empathy and understanding. Ask open-ended questions to encourage them to express their feelings. 
+
+**Step 3: Emotional Inquiry:**
+ Gently inquire about the student's emotions, asking how they feel about certain situations to better understand their psychological state. 
+
+**Step 4: Provide Supportive Advice:**
+ Based on the student's responses, offer advice that is supportive and relevant to their situation, ensuring it is practical and empathetic. 
+
+**Step 5: Encourage Positive Actions:**
+ Suggest actions or strategies that can help the student manage their emotions and improve their situation. 
+
+Now, proceed to execute the following task: 학생들을 대상으로 상담을 하는 전문 상담사 역할 수행하며 질문을 통해 대화를 유도할 것. 
+
+Take a deep breath and lets work this out in a step by step way to be sure we have the right answer."
+`,
+              },
+            },
+            required: ["message"],
+          },
+        },
+      },
+    ],
+    tool_choice: { type: "function", function: { name: "create_response" } },
   });
 
-  const assistantResponse = chatCompletion.choices[0].message.content;
+  const toolCall = chatCompletion.choices[0].message.tool_calls?.[0];
+  const response = toolCall ? JSON.parse(toolCall.function.arguments) : null;
+
+  const assistantResponse = response?.emoji
+    ? `${response.message} ${response.emoji}`
+    : response?.message;
+
   message_history.push({
     role: "assistant",
     content: assistantResponse,
@@ -45,7 +84,7 @@ export default async function createChatCompletion(
 export async function analyzeSentiment(messages) {
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // 감정분석은 3.5로도 충분
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
@@ -68,5 +107,60 @@ export async function analyzeSentiment(messages) {
   } catch (error) {
     console.error("감정 분석 중 오류 발생:", error);
     return 50; // 오류 발생시 중간값 반환
+  }
+}
+
+export async function generateMission(chatHistory) {
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "system",
+          content:
+            "대화 내용을 분석하여 사용자에게 도움이 될 수 있는 실천 가능한 미션을 생성해주세요.",
+        },
+        {
+          role: "user",
+          content: chatHistory,
+        },
+      ],
+      tools: [
+        {
+          type: "function",
+          function: {
+            name: "create_mission",
+            description: "사용자를 위한 맞춤형 미션 생성",
+            parameters: {
+              type: "object",
+              properties: {
+                title: {
+                  type: "string",
+                  description: "미션 제목 (30자 이내)",
+                },
+                description: {
+                  type: "string",
+                  description: "구체적인 미션 설명 (100자 이내)",
+                },
+                difficulty: {
+                  type: "integer",
+                  description: "미션 난이도 (1-5)",
+                  minimum: 1,
+                  maximum: 5,
+                },
+              },
+              required: ["title", "description", "difficulty"],
+            },
+          },
+        },
+      ],
+      tool_choice: { type: "function", function: { name: "create_mission" } },
+    });
+
+    const toolCall = response.choices[0].message.tool_calls?.[0];
+    return toolCall ? JSON.parse(toolCall.function.arguments) : null;
+  } catch (error) {
+    console.error("미션 생성 중 오류 발생:", error);
+    return null;
   }
 }
